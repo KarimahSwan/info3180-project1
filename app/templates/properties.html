@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block main %}
+<br>
+<h1 class="page-header">Properties</h1>
+
+<div class=gallery>
+    {% include 'flash_messages.html' %}
+
+    {% for property in properties %}
+    
+    <div class="card" style="width:18rem">
+        <img src="{{ url_for('get_image', filename=property.filename ) }}", class="card-img-top"/>
+        <div class="card-body">
+            <h5 class="card-title">{{property.description}}</h5>
+            <p>{{property.location}}
+            </p>
+            
+        </div>
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="button" style="width:18rem;">View Property</button>
+        </div>
+       
+    </div>
+    
+    {% endfor %}
+</div>
+{% endblock %}

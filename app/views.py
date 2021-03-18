@@ -5,8 +5,13 @@ Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 This file creates your application.
 """
 
+import os
 from app import app
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash, session, abort, send_from_directory
+from werkzeug.utils import secure_filename
+from .forms import PropertyForm
+from app.models import UserProperty
+from app import db
 
 
 ###
@@ -24,7 +29,49 @@ def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
 
+@app.route('/property', methods=['POST', 'GET'])
+def propertys():
 
+    propertyform=PropertyForm()
+
+    if request.method == 'POST' and propertyform.validate_on_submit():
+        title=propertyform.title.data
+        number_of_bedrooms=propertyform.number_of_bedrooms.data
+        number_of_bathrooms=propertyform.number_of_bathrooms.data
+        location=propertyform.location.data
+        price=propertyform.price.data
+        types=propertyform.types.data
+        description=propertyform.description.data
+        photo=propertyform.photo.data
+
+        filename=secure_filename(photo.filename)
+        photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        userproperty= UserProperty(title, number_of_bedrooms,number_of_bathrooms, location,
+        price,types,description,
+        filename)
+        db.session.add(userproperty)
+        db.session.commit()
+
+        flash('Property Sucessfully Added', 'success')
+        return redirect(url_for('properties'))
+
+    return render_template('property.html', form=propertyform)
+
+@app.route('/properties')
+def properties():
+    userproperties=UserProperty.query.all()
+
+    return render_template('properties.html', properties=userproperties)
+
+@app.route('/upload/<filename>')
+def get_image(filename):
+    root_dir = os.getcwd()
+    return send_from_directory(os.path.join(root_dir, app.config['UPLOAD_FOLDER']), filename)
+
+@app.route('/property/<propertyid>')
+def get_properties():
+    render_template('')
 ###
 # The functions below should be applicable to all Flask apps.
 ###

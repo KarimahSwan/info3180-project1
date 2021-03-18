@@ -1,3 +1,62 @@
 body {
     padding-top: 50px;
+    background-color: rgb(243, 239, 239);
 }
+
+header{
+    background-color: teal;
+}
+
+h1{
+    font-weight: bold;
+}
+
+div #title{
+    width: 600px;
+}
+
+div #description{
+    height:100px;
+    width:600px;
+    resize: none;
+}
+
+div #number_of_bedrooms{
+    width: 280px;
+}
+
+div #number_of_bathrooms{
+    width: 280px;
+}
+
+div #price{
+    width: 280px;
+}
+
+div #type{
+    width: 280px;
+    height:38px;
+}
+
+div #location{
+    width: 280px;
+}
+
+div .info{
+    display: grid;
+    grid-template-columns: 320px auto;
+    grid-template-rows: 80px 80px 80px;
+}
+
+/* div .card{
+    padding-top: 30px;
+    padding-left: 40px;
+    padding-bottom: 20px;
+    width: 780px;
+    font-weight: bold;
+} 
+*/
+.btn{
+    width:130px;
+}
+
