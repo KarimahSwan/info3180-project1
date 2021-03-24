@@ -61,7 +61,6 @@ def propertys():
 @app.route('/properties')
 def properties():
     userproperties=UserProperty.query.all()
-
     return render_template('properties.html', properties=userproperties)
 
 @app.route('/upload/<filename>')
@@ -70,8 +69,9 @@ def get_image(filename):
     return send_from_directory(os.path.join(root_dir, app.config['UPLOAD_FOLDER']), filename)
 
 @app.route('/property/<propertyid>')
-def get_properties():
-    render_template('')
+def get_propertyid(propertyid):
+    propertyid=UserProperty.query.get(propertyid)
+    return render_template('propertyid.html', propertyid=propertyid)
 ###
 # The functions below should be applicable to all Flask apps.
 ###

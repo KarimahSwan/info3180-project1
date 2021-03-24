@@ -8,14 +8,14 @@ class UserProperty(db.Model):
     __tablename__ = 'user_property'
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(180))
-    number_of_bedrooms = db.Column(db.String(180))
-    number_of_bathrooms = db.Column(db.String(180))
-    location = db.Column(db.String(180))
-    price = db.Column(db.String(180))
-    types = db.Column(db.String(180))
-    description = db.Column(db.String(180))
-    filename= db.Column(db.String(300))
+    title = db.Column(db.String(255))
+    number_of_bedrooms = db.Column(db.String(255))
+    number_of_bathrooms = db.Column(db.String(255))
+    location = db.Column(db.String(255))
+    price = db.Column(db.String(255))
+    types = db.Column(db.String(255))
+    description = db.Column(db.String(1000))
+    filename= db.Column(db.String(255))
 
     def __init__(self,title,number_of_bedrooms,number_of_bathrooms,location,price,types,description,filename):
         self.title=title
